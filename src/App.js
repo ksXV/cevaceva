@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import { connect } from "react-redux";
+import "./App.css";
+import {
+  decrementNumber,
+  incrementNumber,
+} from "./redux/number/number.actions";
+function App({ number, dispatch }) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button
+        style={{
+          padding: "1em 2em",
+          backgroundColor: "#FF00FF",
+          border: "1px solid white",
+          cursor: "pointer",
+        }}
+        onClick={() => dispatch(incrementNumber(number))}
+      >
+        Increment
+      </button>
+      <h1>{number}</h1>
+      <button
+        style={{
+          padding: "1em 2em",
+          backgroundColor: "#FF00FF",
+          border: "1px solid white",
+          cursor: "pointer",
+        }}
+        onClick={() => dispatch(decrementNumber(number))}
+      >
+        Decrement
+      </button>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = ({ number }) => ({
+  number,
+});
+export default connect(mapStateToProps)(App);
